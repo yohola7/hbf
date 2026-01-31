@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-gaegu bg-blush-pink text-gray-800 overflow-hidden;
+  }
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.1);
+  /* Soft red shadow */
+}
+
+/* Soft paper texture (Simulated with subtle noise if needed, but clean color for now) */
+.paper-texture {
+  background-color: #FDFBF7;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* Cute stroke for text if needed */
+.text-stroke-cute {
+  -webkit-text-stroke: 1.5px #FF6B6B;
+  color: white;
+}
