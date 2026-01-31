@@ -2,29 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply font-gaegu bg-blush-pink text-gray-800 overflow-hidden;
-  }
+:root {
+  font-family: 'Gaegu', cursive;
 }
 
-/* Glassmorphism utility */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /* Prevent body scroll, handle inside app */
+}
+
+/* Glass panel utility */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.1);
-  /* Soft red shadow */
+  @apply bg-white/30 backdrop-blur-md border border-white/40 shadow-xl;
 }
 
-/* Soft paper texture (Simulated with subtle noise if needed, but clean color for now) */
-.paper-texture {
-  background-color: #FDFBF7;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+/* Custom Scrollbar */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #db2777 transparent;
 }
 
-/* Cute stroke for text if needed */
-.text-stroke-cute {
-  -webkit-text-stroke: 1.5px #FF6B6B;
-  color: white;
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 10px;
+  /* Slightly wider for visibility */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #db2777;
+  /* pink-600 */
+  border-radius: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  /* Border to make it look floating/cleaner */
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #be185d;
+  /* pink-700 */
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMidnight } from "./hooks/useMidnight";
 import { CountdownTimer } from "./components/CountdownTimer";
@@ -70,6 +70,27 @@ function App() {
         });
     };
 
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    // Auto-scroll effect when card appears
+    useEffect(() => {
+        if (phase === 'card') {
+            // Slight delay to allow animation to complete and layout to stabilize
+            const timer = setTimeout(() => {
+                if (scrollRef.current) {
+                    // Check if scroll is actually needed
+                    if (scrollRef.current.scrollHeight > scrollRef.current.clientHeight) {
+                        scrollRef.current.scrollTo({
+                            top: 150, // Fixed pixel amount to ensure movement
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [phase]);
+
     return (
         <div className="w-full h-screen relative overflow-hidden bg-blush-pink text-gray-800 font-gaegu selection:bg-soft-red selection:text-white transition-colors duration-1000 ease-in-out">
 
@@ -131,6 +152,7 @@ function App() {
                     {phase === 'card' && (
                         <motion.div
                             key="card"
+                            ref={scrollRef}
                             className="w-full h-full relative overflow-y-auto overflow-x-hidden pointer-events-auto"
                         >
                             {/* Blur Overlay - Fixed position so it stays while scrolling */}
