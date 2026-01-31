@@ -15,25 +15,19 @@ export const useMidnight = () => {
             // Target: Feb 1st of current year
             let target = new Date(currentYear, 1, 1, 0, 0, 0); // Month is 0-indexed: 1 = Feb
 
-            // If we are past Feb 1st this year, target next year?
-            // User request implies "Birthday Website", so likely upcoming.
-            // If today is AFTER Feb 1st, we target next year.
-            if (now > target) {
+            // If now is past target, we check if it is still the same day (Feb 1st)
+            // If it IS Feb 1st, we keep the target as is (so diff is negative -> isMidnight = true)
+            // Only if it is AFTER Feb 1st do we move to next year.
+            const isFeb1st = now.getMonth() === 1 && now.getDate() === 1;
+
+            if (now > target && !isFeb1st) {
                 target = new Date(currentYear + 1, 1, 1, 0, 0, 0);
             }
             return target;
         };
 
         const target = calculateTarget(); // Real target
-        // const target = new Date(Date.now() + 60 * 1000); // TESTING: 1 minute
 
-        // Wait, I cannot redeclare 'target'. I should comment out the real one or use let.
-        // Let's modify the code to be cleaner for switching.
-
-        // FOR TESTING: Overwrite target
-        // target = new Date(Date.now() + 10 * 1000); // This won't work because it's const.
-
-        // I will change the calculate logic or just hard swap the line.
 
         const checkTime = () => {
             const now = new Date();
