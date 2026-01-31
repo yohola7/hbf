@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 // Helper to get random integer
 const getRandomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-const RandomStickers = () => {
+const RandomStickers = ({ isDraggable = true }: { isDraggable?: boolean }) => {
     const [stickers, setStickers] = useState<string[]>([]);
     const [positions, setPositions] = useState<{ top: number; left: number; rotate: number; scale: number; delay: number }[]>([]);
 
@@ -75,12 +75,16 @@ const RandomStickers = () => {
     if (stickers.length === 0) return null;
 
     return (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute inset-0 overflow-hidden z-0">
             {stickers.map((src, index) => (
                 <motion.img
                     key={index}
                     src={src}
                     alt="sticker"
+                    drag={isDraggable}
+                    dragElastic={0.2}
+                    whileHover={isDraggable ? { scale: 1.1, cursor: 'grab' } : undefined}
+                    whileDrag={isDraggable ? { scale: 1.2, cursor: 'grabbing', zIndex: 100 } : undefined}
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: positions[index]?.scale || 1.0 }}
                     transition={{
@@ -88,12 +92,12 @@ const RandomStickers = () => {
                         delay: positions[index]?.delay || 0,
                         type: "spring"
                     }}
-                    className="absolute drop-shadow-md opacity-90"
+                    className={`absolute drop-shadow-md opacity-90 ${isDraggable ? 'touch-none' : ''}`}
                     style={{
                         top: `${positions[index]?.top}%`,
                         left: `${positions[index]?.left}%`,
                         transform: `translate(-50%, -50%) rotate(${positions[index]?.rotate}deg)`,
-                        maxWidth: 'min(220px, 40vw)', // Larger on mobile (40vw of 400px = 160px), capped at 220px desktop
+                        maxWidth: 'min(220px, 40vw)',
                         maxHeight: 'min(220px, 40vw)'
                     }}
                 />

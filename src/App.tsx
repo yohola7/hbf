@@ -76,9 +76,9 @@ function App() {
             {/* Background (Gradient wash) */}
             <div className={`absolute inset-0 transition-opacity duration-1000 ${phase !== 'countdown' ? 'opacity-50 bg-gradient-to-b from-yellow-50 to-pink-50' : 'opacity-0'}`}></div>
 
-            <RandomStickers />
+            <RandomStickers isDraggable={phase !== 'card'} />
 
-            <div className="relative z-10 w-full h-full flex flex-col items-center justify-center p-4">
+            <div className="relative z-10 w-full h-full flex flex-col items-center justify-center p-4 pointer-events-none">
 
                 <AnimatePresence mode="wait">
                     {phase === 'countdown' && (
@@ -88,7 +88,7 @@ function App() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
                             transition={{ duration: 1 }}
-                            className="text-center flex flex-col items-center"
+                            className="text-center flex flex-col items-center pointer-events-auto"
                         >
 
                             <motion.div
@@ -112,6 +112,7 @@ function App() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -50 }}
                             transition={{ duration: 1, type: "spring" }}
+                            className="pointer-events-auto"
                         >
                             <motion.div
                                 initial={{ opacity: 0 }}
@@ -130,7 +131,7 @@ function App() {
                     {phase === 'card' && (
                         <motion.div
                             key="card"
-                            className="w-full h-full relative overflow-y-auto overflow-x-hidden"
+                            className="w-full h-full relative overflow-y-auto overflow-x-hidden pointer-events-auto"
                         >
                             {/* Blur Overlay - Fixed position so it stays while scrolling */}
                             <motion.div

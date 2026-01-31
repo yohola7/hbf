@@ -9,23 +9,23 @@ export const useMidnight = () => {
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
     useEffect(() => {
-        const calculateTarget = () => {
-            const now = new Date();
-            const currentYear = now.getFullYear();
-            // Target: Feb 1st of current year
-            let target = new Date(currentYear, 1, 1, 0, 0, 0); // Month is 0-indexed: 1 = Feb
+        /*         const calculateTarget = () => {
+                    const now = new Date();
+                    const currentYear = now.getFullYear();
+                    // Target: Feb 1st of current year
+                    let target = new Date(currentYear, 1, 1, 0, 0, 0); // Month is 0-indexed: 1 = Feb
+        
+                    // If we are past Feb 1st this year, target next year?
+                    // User request implies "Birthday Website", so likely upcoming.
+                    // If today is AFTER Feb 1st, we target next year.
+                    if (now > target) {
+                        target = new Date(currentYear + 1, 1, 1, 0, 0, 0);
+                    }
+                    return target;
+                }; */
 
-            // If we are past Feb 1st this year, target next year?
-            // User request implies "Birthday Website", so likely upcoming.
-            // If today is AFTER Feb 1st, we target next year.
-            if (now > target) {
-                target = new Date(currentYear + 1, 1, 1, 0, 0, 0);
-            }
-            return target;
-        };
-
-        const target = calculateTarget(); // Real target
-        // const target = new Date(Date.now() + 10 * 1000); // TESTING: 10 seconds
+        // const target = calculateTarget(); // Real target
+        const target = new Date(Date.now() + 60 * 1000); // TESTING: 1 minute
 
         // Wait, I cannot redeclare 'target'. I should comment out the real one or use let.
         // Let's modify the code to be cleaner for switching.
