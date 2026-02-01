@@ -29,7 +29,7 @@ const TimeUnit = ({ value, label }: { value: number; label: string }) => (
 export const CountdownTimer = ({ timeLeft }: CountdownTimerProps) => {
     return (
         <div className="flex justify-center items-center z-10 mt-8">
-            {/* Days removed as requested */}
+            <TimeUnit value={timeLeft.days} label="Days" />
             <TimeUnit value={timeLeft.hours} label="Hrs" />
             <TimeUnit value={timeLeft.minutes} label="Mins" />
             <TimeUnit value={timeLeft.seconds} label="Secs" />
